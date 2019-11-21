@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+    <munit:config name="munit" doc:name="MUnit configuration"/>
+    <spring:beans>
+        <spring:import resource="classpath:unitedflightsbydestination.xml"/>
+        <spring:import resource="classpath:globalconfiguation.xml"/>
+    </spring:beans>
+    <munit:test name="unitedflightsbydestination-test-suite-unitedflightsbydestinationFlowTest" description="Test" ignore="true">
+        <munit:set payload="#[]" doc:name="Set Message">
+            <munit:inbound-properties>
+                <munit:inbound-property key="http.query.params" value="#[['destination':'LAX']]"/>
+            </munit:inbound-properties>
+        </munit:set>
+        <flow-ref name="unitedflightsbydestinationFlow" doc:name="Flow-ref to unitedflightsbydestinationFlow"/>
+        <munit:assert-not-null doc:name="Assert Not Null Payload"/>
+    </munit:test>
+    <munit:test name="unitedflightsbydestination-test-suite-unitedflightsbydestinationFlowTest1" description="Test" ignore="true">
+        <munit:set payload="#[]" doc:name="Set Message">
+            <munit:inbound-properties>
+                <munit:inbound-property key="http.query.params" value="#[['destination':'SFO']]"/>
+            </munit:inbound-properties>
+        </munit:set>
+        <flow-ref name="unitedflightsbydestinationFlow" doc:name="Flow-ref to unitedflightsbydestinationFlow"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
+        <set-variable variableName="size" value="#[payload.flights.size()]" doc:name="Variable"/>
+        <munit:assert-on-equals message="test failed.." expectedValue="&quot;#[3]&quot;" actualValue="&quot;#[flowVars.size]&quot;" doc:name="Assert Equals"/>
+    </munit:test>
+    <munit:test name="unitedflightsbydestination-test-suite-unitedflightsbydestinationFlowTest2" description="Test">
+        <munit:set payload="#[]" doc:name="Set Message">
+            <munit:inbound-properties>
+                <munit:inbound-property key="http.query.params" value="#[['destination':'SFO']]"/>
+            </munit:inbound-properties>
+        </munit:set>
+        <flow-ref name="unitedflightsbydestinationFlow" doc:name="Flow-ref to unitedflightsbydestinationFlow"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" mimeType="application/java" doc:name="JSON to Object"/>
+        <set-variable variableName="code" value="#[payload.flights[0].destination]" doc:name="Variable"/>
+        <munit:assert-on-equals message="test failed..." expectedValue="&quot;SFO&quot;" actualValue="&quot;#[flowVars.code]&quot;" doc:name="Assert Equals"/>
+    </munit:test>
+</mule>

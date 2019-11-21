@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd">
+    
+    <flow name="errornotificationFlow">
+        <logger message="errornotificationFlow Strats.............." level="INFO" doc:name="Logger"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-variable variableName="errorTime"><![CDATA[%dw 1.0
+%output application/java
+---
+now as :string {format: "yyyy-MM-dd HH:mm:ss.SSS"}]]></dw:set-variable>
+            <dw:set-variable variableName="moduleName"><![CDATA[%dw 1.0
+%output application/java
+---
+"restapi"]]></dw:set-variable>
+        </dw:transform-message>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	moduleName:flowVars.moduleName,
+	resourceName:flowVars.resourceName,
+	errorTime:flowVars.errorTime,
+	errorMessage:flowVars.errorMessage
+	
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <smtp:outbound-endpoint host="smtp.gmail.com" port="587" user="arrowsolesb2017@gmail.com" password="xxxxxxxx" connector-ref="Gmail" to="arrowsolesb2017@gmail.com" from="arrowsolesb2017@gmail.com" subject="ErrorNotification" responseTimeout="10000" doc:name="SMTP"/>
+        <logger message="email sent..............." level="INFO" doc:name="Logger"/>
+    </flow>
+    
+</mule>

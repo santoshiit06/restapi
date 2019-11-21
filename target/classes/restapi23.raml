@@ -1,0 +1,15 @@
+#%RAML 0.8
+title: Sample API
+
+/unitedfights:
+  get:
+    responses:
+      200:
+        body:
+         application/json:
+           example: !include examples/unitedFlightsByDestination-get-response.json
+    
+  post:
+  /{destination}:
+    get:
+    

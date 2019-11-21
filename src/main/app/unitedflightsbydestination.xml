@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+
+	<spring:beans>
+		<spring:bean id="myListableObjectStore"
+		class="org.mule.util.store.SimpleMemoryObjectStore" />
+	</spring:beans>
+    <flow name="unitedflightsbydestinationFlow">
+        <logger message="unitedflightsbydestinationFlow stats........" level="INFO" doc:name="Logger"/>
+        <until-successful  maxRetries="3" millisBetweenRetries="5000" doc:name="Until Successful" synchronous="true">
+            <http:request config-ref="HTTP_Request_Configuration" path="/essentials/united/flights/#[message.inboundProperties.'http.query.params'.destination]" method="GET" doc:name="HTTP"/>
+        </until-successful>
+        <logger message="unitedflights response........ #[message.payloadAs(java.lang.String)]" level="INFO" doc:name="Logger"/>
+        <exception-strategy ref="GlobalExecptionStrtergy" doc:name="Reference Exception Strategy"/>
+       
+       
+       
+       
+       
+       
+      
+        
+        
+    </flow>
+    
+    
+    
+</mule>
