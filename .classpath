@@ -82,6 +82,7 @@
       <attribute value="test" name="org.mule.tooling.scope"/>
     </attributes>
   </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/6.0.6/mysql-connector-java-6.0.6.jar" sourcepath="M2_REPO/mysql/mysql-connector-java/6.0.6/mysql-connector-java-6.0.6-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar">
     <attributes>
       <attribute value="test" name="org.mule.tooling.scope"/>

@@ -112,6 +112,12 @@
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>6.0.6</version>
+		</dependency>
 		<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-http</artifactId>
@@ -173,6 +179,12 @@
             <artifactId>munit-runner</artifactId>
             <version>${munit.version}</version>
             <scope>test</scope>
+        </dependency>
+    <dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-email</artifactId>
+            <version>${mule.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

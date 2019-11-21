@@ -18,8 +18,6 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
        
   <ws:consumer-config name="Web_Service_Consumer" wsdlLocation="http://mu.mulesoft-training.com/essentials/delta?wsdl" service="TicketServiceService" port="TicketServicePort" serviceAddress="http://mu.mulesoft-training.com/essentials/delta" doc:name="Web Service Consumer"/>
 
-  <smtp:gmail-connector name="Gmail" validateConnections="true" doc:name="Gmail"/>
-
   <http:request-config name="HTTP_Request_Configuration" host="${united.host}" port="${united.port}" doc:name="HTTP Request Configuration"/>
 
   <db:mysql-config name="MySQL_Configuration" host="${db.host}" port="${db.port}" user="${db.user}" password="${db.password}" database="integration" doc:name="MySQL Configuration"/>
@@ -37,6 +35,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
   
   
     <context:property-placeholder location="restapi-${env}.properties"/>
+    <smtp:gmail-connector name="Gmail" validateConnections="true" doc:name="Gmail"/>
 
 
  <catch-exception-strategy  name="GlobalExecptionStrtergy">
