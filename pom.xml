@@ -18,16 +18,13 @@
     <mule.munit.support.version>3.9.2</mule.munit.support.version>
     </properties>
     
-
-  
- 
-
-
 	<build>
 		<plugins>
 		      <plugin>
         <groupId>org.mule.tools.maven</groupId>
         <artifactId>mule-maven-plugin</artifactId>
+        <version>${mule.tools.version}</version>
+	    <extensions>true</extensions>
         <configuration>
           <deploymentType>cloudhub</deploymentType>
           <muleVersion>3.9.3</muleVersion> 
