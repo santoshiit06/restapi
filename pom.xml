@@ -23,8 +23,7 @@
 		      <plugin>
         <groupId>org.mule.tools.maven</groupId>
         <artifactId>mule-maven-plugin</artifactId>
-        <version>${mule.tools.version}</version>
-	    <extensions>true</extensions>
+        <version>2.0</version>
         <configuration>
           <deploymentType>cloudhub</deploymentType>
           <muleVersion>3.9.3</muleVersion> 
@@ -32,7 +31,6 @@
           <password>Spiderman143</password> 
           <applicationName>restapi1</applicationName>
           <environment>sandbox</environment> 
-          <businessGroup>${anypoint.businessGroup}</businessGroup>
           <region>us-east-1</region>
           <uri>https://anypoint.mulesoft.com</uri> 
           <workerType>MICRO</workerType>
