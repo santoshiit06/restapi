@@ -35,6 +35,12 @@
           <uri>https://anypoint.mulesoft.com</uri> 
           <workerType>MICRO</workerType>
           <workers>1</workers>
+          <exclusions>
+            <exclusion>
+                <artifactId>tools</artifactId>
+                <groupId>com.sun</groupId>
+            </exclusion>
+        </exclusions>
         </configuration>
         <executions>
           <execution>
@@ -246,5 +252,7 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+    
+    
 
 </project>
